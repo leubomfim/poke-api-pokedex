@@ -27,8 +27,6 @@ export const PoKeDetails = () => {
     getPokeTypes();
   }
 
-  console.log(pokeDetails.data);
-
   useEffect(() => {
     setParamId(paramId.id);
   }, [paramId.id, setParamId]);

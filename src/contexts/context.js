@@ -1,21 +1,29 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import P from 'prop-types';
 
-import { pokeApi, pokeDetailsApi } from '../services';
+import { pokeApi, pokeDetailsApi, pokeSearchApi } from '../services';
 
 export const PokeContext = createContext();
 
 export const PokeProvider = ({ children }) => {
+  const [searchValue, setSearchValue] = useState('');
   const [poke, setPoke] = useState([]);
+  const [searchPoke, setSearchPoke] = useState('');
   const [pokeDetails, setPokeDetails] = useState('');
   const [paramId, setParamId] = useState('');
+
   let [id, setId] = useState(1);
   let [maxId, setMaxId] = useState(20);
 
   useEffect(() => {
-    pokeApi(setPoke, id, maxId);
+    if (searchValue === '') {
+      pokeApi(setPoke, id, maxId, setSearchPoke);
+    } else {
+      pokeSearchApi(setSearchPoke, searchValue);
+    }
+
     pokeDetailsApi(setPokeDetails, paramId);
-  }, [id, maxId, paramId]);
+  }, [id, maxId, paramId, searchValue]);
 
   const pokeObject = {
     poke,
@@ -23,6 +31,9 @@ export const PokeProvider = ({ children }) => {
     setId,
     pokeDetails,
     setParamId,
+    setSearchValue,
+    searchValue,
+    searchPoke,
   };
 
   return (
