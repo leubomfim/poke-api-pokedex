@@ -16,4 +16,3 @@ Desenvolver uma aplicação aonde o usuário possa ver informações como movime
 - React
 - React Router Dom
 - Styled-Components
-- Swiper
